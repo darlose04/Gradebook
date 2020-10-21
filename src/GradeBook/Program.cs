@@ -9,19 +9,30 @@ namespace GradeBook
         {
             // double[] numbers = new double[] { 12.7, 10.3, 6.11, 4.1};
 
-            var Book = new Book();
+            var Book = new Book("Scott's Grade Book");
             Book.AddGrade(89.1);
             Book.AddGrade(90.5);
+            Book.AddGrade(77.5);
             
             List<double> grades = new List<double>() { 12.7, 10.3, 6.11, 4.1};
             grades.Add(56.1);
 
             var result = 0.0;
+            var highGrade = double.MinValue;
+            var lowGrade = double.MaxValue;
+
             foreach(double number in grades) {
+                // if (number > highGrade) {
+                //     highGrade = number;
+                // }
+                lowGrade = Math.Min(number, lowGrade);
+                highGrade = Math.Max(number, highGrade);
                 result += number;
             }
             double avg = result / grades.Count;
             Console.WriteLine($"The average grade is {avg:N2}");
+            Console.WriteLine($"The lowest grade is {lowGrade}");
+            Console.WriteLine($"The highest grade is {highGrade}");
         }
     }
 }
