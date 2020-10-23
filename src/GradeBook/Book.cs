@@ -29,9 +29,8 @@ namespace GradeBook
             }
 
             result.Average /= grades.Count;
-            // Console.WriteLine($"The average grade is {avg:N2}");
-            // Console.WriteLine($"The lowest grade is {lowGrade}");
-            // Console.WriteLine($"The highest grade is {highGrade}");
+
+            return result;
         }
 
         private List<double> grades;
