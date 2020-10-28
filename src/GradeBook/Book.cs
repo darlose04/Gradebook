@@ -3,10 +3,13 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {
+    public delegate void GradeAddedDelegate(object sender, EventArgs args);
+
     public class Book
     {    
         public Book(string name)
         {
+            // category = "";
             grades = new List<double>();
             this.Name = name; // could also get rid of this keyword
         }
@@ -36,11 +39,16 @@ namespace GradeBook
         {
             if (grade <= 100 && grade >= 0) {
                 grades.Add(grade);
+                if (GradeAdded != null) {
+                    GradeAdded(this, new EventArgs());
+                }
             } else {
                 throw new ArgumentException($"Invalid {nameof(grade)}");
             }
             
         }
+
+        public event GradeAddedDelegate GradeAdded;
 
         public Statistics GetStatistics() {
             var result = new Statistics();
@@ -110,6 +118,37 @@ namespace GradeBook
         }
 
         private List<double> grades;
-        public string Name;
+
+        // long way of defining properties
+        // public string Name
+        // {
+        //     get
+        //     {
+        //         return name;
+        //     }
+        //     set
+        //     {
+        //         if (!String.IsNullOrEmpty(value))
+        //         {
+        //             name = value;
+        //         }
+        //     }
+        // }
+        // private string name;
+
+        // auto property
+        public string Name
+        {
+            get; 
+            // read only property
+            set;
+        }
+
+        // can only use this in the constructor or to assign a value here (variable initializer)
+        // readonly string category = "Science";
+        // const string category = "Science";
+        
+        public const string CATEGORY = "Science";
+        
     }
 }

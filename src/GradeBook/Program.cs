@@ -10,6 +10,12 @@ namespace GradeBook
             // double[] numbers = new double[] { 12.7, 10.3, 6.11, 4.1};
 
             var book = new Book("Scott's Grade Book");
+            book.GradeAdded += OnGradeAdded;
+            book.GradeAdded += OnGradeAdded;
+            book.GradeAdded -= OnGradeAdded;
+            book.GradeAdded += OnGradeAdded;
+            //book.GradeAdded = null; // this will not work since it is an event field. The compiler adds restrictions
+
             // book.AddGrade(89.1);
             // book.AddGrade(90.5);
             // book.AddGrade(77.5);
@@ -50,11 +56,19 @@ namespace GradeBook
             }
 
             var stats = book.GetStatistics();
+            // book.Name = "";
             
+            Console.WriteLine(Book.CATEGORY);
+            Console.WriteLine($"For the book named {book.Name}");
             Console.WriteLine($"The average grade is {stats.Average:N2}");
             Console.WriteLine($"The lowest grade is {stats.Low}");
             Console.WriteLine($"The highest grade is {stats.High}");
             Console.WriteLine($"The letter grade is {stats.Letter}");
+        }
+
+        static void OnGradeAdded(object sender, EventArgs e)
+        {
+            Console.WriteLine("A grade was added");
         }
     }
 }
